@@ -17,10 +17,11 @@ int	main(int argc, char **argv)
 	/* With this if condition, we'll get two different results */
 	/* What happens if we call fork() a second time? */
 	/* It print four times Hello World */
-	int id = fork();
+	fork();
+	fork();
 	/* check id number to choose if will fork again or not */
-	if (0 != id)
-		fork();
+	//if (0 != id)
+	//	fork();
 	printf("Hello World\n");
 	/* if (id == 0) */
 	/* 	printf("Hello from child process\n"); */
