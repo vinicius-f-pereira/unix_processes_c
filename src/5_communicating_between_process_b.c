@@ -72,7 +72,6 @@ int	main(int argc, char **argv)
 		}
 		/* after read we need close fd[0] too */
 		close(fd[0]);
-			printf("An error ocurred with writing to the pipe\n");
 		printf("Got from child process %d\n", y);
 	}
 	return (0);
