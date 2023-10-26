@@ -1,6 +1,9 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <errno.h>
 
 int	main(int argc, char **argv)
 {
@@ -33,6 +36,12 @@ int	main(int argc, char **argv)
 	/* 			when we close a fd, does not remains a parent process */ 
 	/* 			with fd open. */
 	id = fork();
+	/* threat if something go wrong with fork */
+	if (id == -1)
+	{
+		printf("An error ocurred with fork\n");
+		return (4);
+	}
 	if (id == 0)
 	{
 		/* we inherit fd from parent process, in this case we need to */
@@ -41,7 +50,12 @@ int	main(int argc, char **argv)
 		printf("input a number: ");
 		scanf("%d", &x);
 		/* should use fd[1] to write in 'x' */
-		write(fd[1], &x, sizeof(int));
+		/* we need to handle errors that can ocurr with write and read */
+		if(write(fd[1], &x, sizeof(int)) == -1)
+		{
+			printf("An error ocurred with writing to the pipe\n");
+			return (2);
+		}
 		/* after write in 'x' address we don't need to keep open fd[1] */
 		/* 	we should close it. */
 		close(fd[1]);
@@ -51,21 +65,15 @@ int	main(int argc, char **argv)
 	{
 		/* this close is the same of fork process */
 		close(fd[1]);
-		read(fd[0], &y, sizeof(int));
-
+		if (read(fd[0], &y, sizeof(int)) == -1)
+		{
+			printf("An error ocurred with reading from the pipe\n");
+			return (3);
+		}
+		/* after read we need close fd[0] too */
+		close(fd[0]);
+			printf("An error ocurred with writing to the pipe\n");
+		printf("Got from child process %d\n", y);
 	}
 	return (0);
-}
-
-
-int	comp(int a, int b) //a = 1 | b = 2
-{
-	return (a * (a < b) + b * (b <= a));
-	return ()
-		//to upper
-	c -= 32 * (c * (se for upper (retorna 0), se  for lower(1))
-	if (a < b)
-		return (a);
-	else
-		return (b);
 }
