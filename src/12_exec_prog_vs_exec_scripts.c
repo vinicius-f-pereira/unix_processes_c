@@ -7,6 +7,10 @@
 
 int	main(int ac, char **av)
 {
-
+jint
+	int
+	int
+	int
+	
 	return (0);
 }
