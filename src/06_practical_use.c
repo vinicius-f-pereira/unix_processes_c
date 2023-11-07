@@ -9,6 +9,7 @@ int	main(int argc, char **argv)
 {
 	int	arr[] = { 1, 2, 3, 4, 1, 2, 7, 9, 15 };
 	int	arr_size = sizeof(arr) / sizeof(int);
+	char	*name;
 	int	start, end, sum, id, id2, count, sumFromChild, totalSum;
 	int	fd[2];
 	
@@ -20,6 +21,7 @@ int	main(int argc, char **argv)
 	if (id == 0)
 	{
 		start = 0;
+		name = "davy";
 		end = arr_size / 3;
 	}
 	else
